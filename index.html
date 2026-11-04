@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <!-- Meta tags -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Title -->
         <title>PollyGlot</title>
+        <!-- CSS  -->
         <link rel="stylesheet" href="index.css">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,49 +14,52 @@
         <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="app">
-            <!-- Header -->
-            <header>
-                <div class="header-container">
-                    <img src="assets/parrot.png" alt="PollyGlot parrot">
-                    <div class="headings">
-                        <h1>PollyGlot</h1>
-                        <p>Perfect Translation Every Time</p>
-                    </div>
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <img src="assets/parrot.png" alt="PollyGlot parrot">
+                <div class="headings">
+                    <h1>PollyGlot</h1>
+                    <p>Perfect Translation Every Time</p>
                 </div>
-            </header>
+            </div>
+        </header>
 
-            <!-- Main Body -->
-            <main>
-                <section class="translator">
-                    <h2 class="section-heading">Text to translate 👇</h2>
-                    <textarea id="text-to-translate" placeholder="How are you?"></textarea>
+        <!-- Main Body -->
+        <main>
+    <section class="translator" id="translator">
+        <!-- Chat messages go here -->
+        <div class="chat-log" id="chat-log"></div>
 
-                    <h2 class="section-heading">Select language 👇</h2>
-                        <form class="languages">
-                        <label class="language">
-                            <input type="radio" name="language" value="french" checked>
-                            <span>French</span>
-                            <img class="flag" src="https://flagcdn.com/w40/fr.png" alt="French flag">
-                        </label>
+        <h2 class="section-heading input-heading">Text to translate 👇</h2>
+        <textarea id="text-to-translate" placeholder="How are you?"></textarea>
 
-                        <label class="language">
-                            <input type="radio" name="language" value="spanish">
-                            <span>Spanish</span>
-                            <img class="flag" src="https://flagcdn.com/w40/es.png" alt="Spanish flag">
-                        </label>
-
-                        <label class="language">
-                            <input type="radio" name="language" value="japanese">
-                            <span>Japanese</span>
-                            <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japanese flag">
-                        </label>
-                    </form>
-
-                    <button type="button" id="translate-btn">Translate</button>
-                </section>
-            </main>
+        <!-- Wrapper so the heading and radios hide together -->
+        <div class="language-picker" id="language-picker">
+            <h2 class="section-heading">Select language 👇</h2>
+            <form class="languages">
+                <label class="language">
+                    <input type="radio" name="language" value="french" checked>
+                    <span>French</span>
+                    <img class="flag" src="https://flagcdn.com/w40/fr.png" alt="French flag">
+                </label>
+                <label class="language">
+                    <input type="radio" name="language" value="spanish">
+                    <span>Spanish</span>
+                    <img class="flag" src="https://flagcdn.com/w40/es.png" alt="Spanish flag">
+                </label>
+                <label class="language">
+                    <input type="radio" name="language" value="japanese">
+                    <span>Japanese</span>
+                    <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japanese flag">
+                </label>
+            </form>
         </div>
+
+        <button type="button" id="translate-btn">Translate</button>
+    </section>
+</main>
+
         <script src="index.js" type="module"></script>
     </body>
 </html>
