@@ -1,69 +1,81 @@
 // Imports from other Files, bringing in Functions. 
 import { getTranslation } from "./api.js";
-import { addMessage, showChatView, clearInput } from "./ui.js";
+import { addMessage, showChatView, clearInput, selectedFlag } from "./ui.js";
 
 // DOM Elements for Event Listener and Variables
 const translateBtn = document.getElementById("translate-btn");
-const translatorCard = document.getElementById("translator");
 const textBox = document.getElementById("text-to-translate");
-document.querySelector('input[name="language"]:checked').value;
+const flagOption = document.querySelectorAll(".flag-option");
 
 // Sets the App State, 1. On Language selection, 2. If chatting or not, 3. Loading Phase
+let selectedLanguage = null
+let isChatting = false
+let isLoading = false 
 
-/* ---------- 3. APP STATE ----------
-   - selectedLanguage = null   (set once, on the first submit, then never changes)
-   - isChatting = false        (false = first screen, true = chat view)
-   - isLoading = false         (stops double-submits while waiting for the AI)
-*/
+// Runs when user first submits an input. 
+async function handleSubmit() {
+   // Ignores clicks while req in progress
+   if(isLoading) return;
+
+   //Trim, save result and do nothing if input is empty
+   const text = textBox.value.trim();
+   if(!text) return;
+
+   // On first submit only, lock in radio choice and switch State to Chat Mode.
+   if (!isChatting) {
+      const chosen = document.querySelector('input[name="language"]:checked');
+      selectedLanguage = chosen.value;
+      selectedFlag(selectedLanguage);
+
+      showChatView()
+      isChatting = true;
+      translateBtn.textContent = "Send";
+   }
+
+   //Show what user said, then clears the box.
+   addMessage("user", text);
+   clearInput();
+
+   // Change to Loading State
+   isLoading = true;
+   translateBtn.disabled = true;
+
+   // Adds in "typing..." while waiting for response.
+   const load = addMessage("ai", "typing...");
+   load.classList.add("pending");
+
+   //Get's answer from AI, handles Success and failure
+   try {
+      const response = await getTranslation(text, selectedLanguage);
+      addMessage("ai", response);
+   } catch (err) {
+      console.error(err);
+      addMessage("ai", "Sorry, something went wrong. Please try again later.");
+   } finally {
+      load.remove();
+      isLoading = false;
+      translateBtn.disabled = false;
+   }
+}
 
 
-/* ---------- 4. MAIN HANDLER: handleSubmit() ----------
-   1. If isLoading, return.
-   2. Read the textarea value and trim it. If it's empty, return.
-   3. If this is the FIRST submit (isChatting is false):
-        a. Read the checked radio's value and save it to selectedLanguage.
-        b. Call showChatView() to add "is-chatting" to #translator.
-        c. Set isChatting = true.
-        d. Change the button text to "Send" (optional).
-   4. Call addMessage("user", text) to show the user's bubble.
-   5. Call clearInput() to empty the textarea.
-   6. Set isLoading = true and disable the button.
-        (optional: show a "typing..." bubble from the AI)
-   7. try:
-        - const reply = await getTranslation(text, selectedLanguage)
-        - Call addMessage("ai", reply)
-      catch (error):
-        - Call addMessage("ai", "Sorry, something went wrong. Please try again.")
-        - console.error(error)
-      finally:
-        - isLoading = false and re-enable the button
-        - (optional: remove the "typing..." bubble)
-*/
+// Event Listeners
+//  Translate button to call AI response
+translateBtn.addEventListener("click", handleSubmit)
 
-// Event Listeners - Translate button to call AI response
-translateBtn.addEventListener('click', () => {
+// Enter Sends, Shift + Enter makes a new line.
+textBox.addEventListener("keydown", (e) => {
+   if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+   }
+});
 
-})
-/* ---------- 5. EVENT LISTENERS ----------
-   - Button "click" -> handleSubmit
-   - Textarea "keydown": if Enter (without Shift) is pressed,
-     call event.preventDefault() and then handleSubmit
-*/
+// Flag buttons switch language during chat.
+flagOption.forEach((flag) => {
+   flag.addEventListener("click", () => {
+      selectedLanguage = flag.dataset.language;
+      selectedFlag(selectedLanguage);
+   });
 
-
-/* ============================================================
-   ui.js (separate file) will export:
-   - addMessage(role, text)
-       create a <div class="message user|ai">, set textContent,
-       append it to #chat-log, scroll #chat-log to the bottom
-   - showChatView()
-       add "is-chatting" to #translator
-   - clearInput()
-       empty the textarea and focus it
-
-   api.js (separate file) will export:
-   - getTranslation(text, language)
-       import getSystemPrompt (from prompt.js or api.js),
-       call the AI API with the system prompt + user text,
-       return the reply string
-   ============================================================ */
+});
