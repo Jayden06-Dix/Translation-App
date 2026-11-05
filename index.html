@@ -27,38 +27,51 @@
 
         <!-- Main Body -->
         <main>
-    <section class="translator" id="translator">
-        <!-- Chat messages go here -->
-        <div class="chat-log" id="chat-log"></div>
+            <section class="translator" id="translator">
+                <!-- Chat messages go here -->
+                <div class="chat-log" id="chat-log"></div>
 
-        <h2 class="section-heading input-heading">Text to translate 👇</h2>
-        <textarea id="text-to-translate" placeholder="How are you?"></textarea>
+                <h2 class="section-heading input-heading">Text to translate 👇</h2>
+                <textarea id="text-to-translate" placeholder="How are you?"></textarea>
 
-        <!-- Wrapper so the heading and radios hide together -->
-        <div class="language-picker" id="language-picker">
-            <h2 class="section-heading">Select language 👇</h2>
-            <form class="languages">
-                <label class="language">
-                    <input type="radio" name="language" value="french" checked>
-                    <span>French</span>
-                    <img class="flag" src="https://flagcdn.com/w40/fr.png" alt="French flag">
-                </label>
-                <label class="language">
-                    <input type="radio" name="language" value="spanish">
-                    <span>Spanish</span>
-                    <img class="flag" src="https://flagcdn.com/w40/es.png" alt="Spanish flag">
-                </label>
-                <label class="language">
-                    <input type="radio" name="language" value="japanese">
-                    <span>Japanese</span>
-                    <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japanese flag">
-                </label>
-            </form>
-        </div>
+                <!-- Wrapper so the heading and radios hide together -->
+                <div class="language-picker" id="language-picker">
+                    <h2 class="section-heading">Select language 👇</h2>
+                    <form class="languages">
+                        <label class="language">
+                            <input type="radio" name="language" value="french" checked>
+                            <span>French</span>
+                            <img class="flag" src="https://flagcdn.com/w40/fr.png" alt="French flag">
+                        </label>
+                        <label class="language">
+                            <input type="radio" name="language" value="spanish">
+                            <span>Spanish</span>
+                            <img class="flag" src="https://flagcdn.com/w40/es.png" alt="Spanish flag">
+                        </label>
+                        <label class="language">
+                            <input type="radio" name="language" value="japanese">
+                            <span>Japanese</span>
+                            <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japanese flag">
+                        </label>
+                    </form>
+                </div>
 
-        <button type="button" id="translate-btn">Translate</button>
-    </section>
-</main>
+                <button type="button" id="translate-btn">Translate</button>
+
+                <!-- Flags to switch language during the chat (hidden until chat view) -->
+                <div class="flag-picker" id="flag-picker">
+                    <button type="button" class="flag-option" data-language="french" aria-label="French">
+                        <img src="https://flagcdn.com/w80/fr.png" alt="French flag">
+                    </button>
+                    <button type="button" class="flag-option" data-language="spanish" aria-label="Spanish">
+                        <img src="https://flagcdn.com/w80/es.png" alt="Spanish flag">
+                    </button>
+                    <button type="button" class="flag-option" data-language="japanese" aria-label="Japanese">
+                        <img src="https://flagcdn.com/w80/jp.png" alt="Japanese flag">
+                    </button>
+                </div>
+            </section>
+        </main>
 
         <script src="index.js" type="module"></script>
     </body>

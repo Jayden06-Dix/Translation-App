@@ -1,3 +1,16 @@
+// Import OpenAi
+import  OpenAI  from "openai"
+
+// Initialize OpenAI client for provider using .env variables
+const openai = new OpenAI({
+  apiKey:import.meta.env.VITE_AI_KEY,
+  baseURL: import.meta.env.VITE_AI_URL,
+  dangerouslyAllowBrowser: true,
+});
+
+const aiModel = import.meta.env.VITE_AI_MODEL
+
+// System Prompt
 export function getSystemPrompt(language) {
   return `You are PollyGlot, a translation engine. Your only job is to translate the user's message into ${language}.
 
@@ -9,4 +22,19 @@ Rules:
 5. Write in the normal script of ${language} (for Japanese, use kanji and kana, never romaji).
 6. If the message is already in ${language}, return it unchanged.
 7. If the message cannot be translated (empty, only symbols, or gibberish), return it unchanged.`;
+}
+
+// Takes user inout and language, asks AI and returns the translated version
+export async function getTranslation(text, language) {
+  const response = await openai.chat.completions.create({
+    model: aiModel,
+    messages: [{
+      role: "system", content: getSystemPrompt(language)
+    }, 
+  {
+    role: "user", content: text 
+  },
+],
+  })
+    return response.choices[0].message.content
 }

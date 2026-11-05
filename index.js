@@ -1,20 +1,14 @@
-/* ============================================================
-   index.js: entry point. Wires up events and holds app state.
-   ============================================================ */
+// Imports from other Files, bringing in Functions. 
+import { getTranslation } from "./api.js";
+import { addMessage, showChatView, clearInput } from "./ui.js";
 
-/* ---------- 1. IMPORTS ----------
-   - From ui.js:  addMessage, showChatView, clearInput
-   - From api.js: getTranslation
-*/
+// DOM Elements for Event Listener and Variables
+const translateBtn = document.getElementById("translate-btn");
+const translatorCard = document.getElementById("translator");
+const textBox = document.getElementById("text-to-translate");
+document.querySelector('input[name="language"]:checked').value;
 
-
-/* ---------- 2. GRAB DOM ELEMENTS ----------
-   - #translator (the card, used for the "is-chatting" class)
-   - #text-to-translate (textarea)
-   - #translate-btn (button)
-   - radio inputs: input[name="language"]
-*/
-
+// Sets the App State, 1. On Language selection, 2. If chatting or not, 3. Loading Phase
 
 /* ---------- 3. APP STATE ----------
    - selectedLanguage = null   (set once, on the first submit, then never changes)
@@ -46,7 +40,10 @@
         - (optional: remove the "typing..." bubble)
 */
 
+// Event Listeners - Translate button to call AI response
+translateBtn.addEventListener('click', () => {
 
+})
 /* ---------- 5. EVENT LISTENERS ----------
    - Button "click" -> handleSubmit
    - Textarea "keydown": if Enter (without Shift) is pressed,

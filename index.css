@@ -101,7 +101,7 @@ textarea {
 }
 
 textarea::placeholder {
-  color: #1E1E1E;
+  color: #ccc;
 }
 
 textarea:focus {
@@ -158,23 +158,79 @@ textarea:focus {
   background: #024a82;
 }
 
+/* CHANGED: disabled look while waiting for the AI */
+#translate-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 /* Hidden Chat feature until AI replies */
-.chat-log { display: none; width: 100%; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+/* CHANGED: chat log now scrolls once it gets long (makes the auto-scroll in ui.js work) */
+.chat-log {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  max-height: 50vh;
+  overflow-y: auto;
+}
 
 .translator.is-chatting .chat-log { display: flex; }
 .translator.is-chatting .language-picker,
 .translator.is-chatting .input-heading { display: none; }
 .translator.is-chatting textarea { height: 3.5rem; margin-bottom: 0.75rem; }
 
-.message { max-width: 80%; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 1rem; }
-.message.user { align-self: flex-end; background: #035A9D; color: #fff; }
-.message.ai   { align-self: flex-start; background: #EFF0F4; color: #1E1E1E; }
+/* Message Colours. */
+.message {
+  max-width: 80%;
+  padding: 0.6rem 0.9rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.message.user { align-self: flex-end; background: #f0ebd8; color: #748cab; }
+.message.ai   { align-self: flex-start; background: #748cab; color: #f0ebd8; }
 
 .language-picker {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Flag picker (hidden until chat view) */
+.flag-picker {
+  display: none;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.translator.is-chatting .flag-picker { display: flex; }
+
+.flag-option {
+  background: none;
+  border: 3px solid transparent;
+  padding: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.flag-option img {
+  display: block;
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.flag-option:hover {
+  border-color: #B5D4F4;
+}
+
+.flag-option.selected {
+  border-color: #035A9D;
 }
 
 /* Media Queries */
