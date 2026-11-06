@@ -1,4 +1,4 @@
-// Sends the text to our Netlify function, which talks to the AI and keeps the key private
+// Sends the text to the Netlify function, which talks to the AI and keeps the key private
 export async function getTranslation(text, language) {
   const res = await fetch("/.netlify/functions/translate", {
     method: "POST",
