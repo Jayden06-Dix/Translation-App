@@ -26,15 +26,14 @@ Rules:
 
 // Takes user inout and language, asks AI and returns the translated version
 export async function getTranslation(text, language) {
-  const response = await openai.chat.completions.create({
-    model: aiModel,
-    messages: [{
-      role: "system", content: getSystemPrompt(language)
-    }, 
-  {
-    role: "user", content: text 
-  },
-],
-  })
-    return response.choices[0].message.content
+  const res = await fetch("/.netlify/functions/translate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text, language }),
+  });
+
+  if (!res.ok) throw new Error("Translation request failed");
+
+  const data = await res.json();
+  return data.reply;
 }
