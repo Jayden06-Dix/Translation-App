@@ -189,8 +189,8 @@ textarea:focus {
   font-size: 1rem;
   font-weight: 600;
 }
-.message.user { align-self: flex-end; background: #f0ebd8; color: #748cab; }
-.message.ai   { align-self: flex-start; background: #748cab; color: #f0ebd8; }
+.message.user { align-self: flex-end; background: #32CD32; color: #FFFFFF; }
+.message.ai   { align-self: flex-start; background: #035A9D; color: #FFFFFF; }
 
 .language-picker {
   width: 100%;
@@ -219,6 +219,8 @@ textarea:focus {
 }
 
 .flag-option img {
+  border: 1px solid #212726;
+  border-radius: 4px;
   display: block;
   width: 48px;
   height: 32px;
